@@ -452,10 +452,10 @@ const knowledge = {
     'fallback': 'Je ne suis pas sûr de comprendre. Veuillez reformuler votre question ou essayer l\'une des suggestions ci-dessus !',
 };
 
-// Fonction pour appeler le proxy Serverless (/api/chat)
+// Fonction pour appeler le proxy Serverless (https://gemini-chat.brehelin-e.workers.dev)
 async function getApiResponse(question) {
     try {
-        const response = await fetch('/api/chat', { 
+        const response = await fetch('https://gemini-chat.brehelin-e.workers.dev', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
