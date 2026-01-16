@@ -446,38 +446,36 @@ console.log('%cContact: brehelin-e@saint-louis29.net', 'color: #06b6d4; font-siz
 // ===============================================
 // 12. CHATBOT IA (Version connectée à l'API Gemini)
 // ===============================================
-let chatHistory = [];
+
 // Base de connaissances statique servant de FALLBACK si l'API échoue
 const knowledge = {
     'fallback': 'Je ne suis pas sûr de comprendre. Veuillez reformuler votre question ou essayer l\'une des suggestions ci-dessus !',
 };
 
-// Fonction pour appeler le proxy Serverless (https://gemini-chat.brehelin-e.workers.dev)
+// Fonction pour appeler le proxy Serverless (/api/chat)
 async function getApiResponse(question) {
-  try {
-    const response = await fetch('https://gemini-chat.brehelin-e.workers.dev', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        question,
-        currentHistory: chatHistory
-      }),
-    });
+    try {
+        const response = fetch('https://gemini-chat.brehelin-e.workers.dev/', ...        { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ question }),
+        });
 
-    if (!response.ok) {
-      console.error(`Erreur API: ${response.status}`);
-      return knowledge.fallback;
+        if (!response.ok) {
+            console.error(`Erreur du proxy Serverless: ${response.status}`);
+            return knowledge.fallback;
+        }
+
+        const data = await response.json();
+        return data.answer || knowledge.fallback;
+
+    } catch (error) {
+        console.error("Erreur réseau ou Fetch:", error);
+        return 'Erreur réseau. Je ne peux pas contacter l\'IA. Veuillez réessayer.';
     }
-
-    const data = await response.json();
-    return data.answer || knowledge.fallback;
-
-  } catch (error) {
-    console.error("Erreur réseau ou Fetch:", error);
-    return "Erreur réseau. Je ne peux pas contacter l'IA. Veuillez réessayer.";
-  }
 }
-
 
 // Fonction utilitaire pour ajouter des messages
 function addMessage(text, isBot = true) {
@@ -508,29 +506,23 @@ function hideTyping() {
 
 // Fonction principale pour envoyer le message (maintenant async pour l'API)
 async function sendMessage() {
-  const input = document.getElementById('chatbot-input');
-  const question = input.value.trim();
-  if (!question) return;
+    const input = document.getElementById('chatbot-input');
+    const question = input.value.trim();
+    if (!question) return;
 
-  // 1. Afficher la question de l'utilisateur
-  addMessage(question, false);
-  input.value = '';
+    // 1. Afficher la question de l'utilisateur
+    addMessage(question, false);
+    input.value = '';
 
-  // AJOUT 1 : stocker la question dans l'historique
-  chatHistory.push({ role: "user", parts: [{ text: question }] });
+    // 2. Afficher l'indicateur de frappe
+    showTyping();
+    
+    // 3. Appel asynchrone à l'API
+    const responseText = await getApiResponse(question); 
 
-  // 2. Afficher l'indicateur de frappe
-  showTyping();
-  
-  // 3. Appel asynchrone à l'API (avec historique)
-  const responseText = await getApiResponse(question); 
-
-  // 4. Masquer l'indicateur et afficher la réponse
-  hideTyping();
-  addMessage(responseText, true);
-
-  // AJOUT 2 : stocker la réponse dans l'historique
-  chatHistory.push({ role: "model", parts: [{ text: responseText }] });
+    // 4. Masquer l'indicateur et afficher la réponse
+    hideTyping();
+    addMessage(responseText, true);
 }
 
 
