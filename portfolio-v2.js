@@ -201,9 +201,9 @@ const knowledge = {
     'fallback': 'Je ne suis pas sûr de comprendre. Veuillez reformuler votre question ou essayer l\'une des suggestions ci-dessus !',
 };
 
-// FONCTION CLÉ : Appelle ton Worker Cloudflare
 async function getApiResponse(question) {
     try {
+        // L'URL de votre worker Cloudflare
         const CLOUDFLARE_WORKER_URL = 'https://gemini-chat.brehelin-e.workers.dev'; 
 
         const response = await fetch(CLOUDFLARE_WORKER_URL, { 
@@ -211,9 +211,8 @@ async function getApiResponse(question) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ 
-                question: question 
-            }),
+            // On envoie un objet JSON avec la propriété "question"
+            body: JSON.stringify({ question: question }), 
         });
 
         if (!response.ok) {
@@ -229,8 +228,7 @@ async function getApiResponse(question) {
         return 'Erreur réseau. Je n\'arrive pas à joindre mon IA sur Cloudflare.';
     }
 }
-
-// ... (garder les fonctions addMessage, showTyping, hideTyping, sendMessage et initChatbot)
+// ... gardez le reste de vos fonctions addMessage(), sendMessage(), etc.
 
 function addMessage(text, isBot = true) {
     const messagesContainer = document.getElementById('chatbot-messages');
