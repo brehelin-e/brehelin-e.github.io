@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Introuvable | Ewen Bréhélin</title>
+  
+  <link rel="icon" type="image/png" href="./image/avatar-favicon.png" sizes="16x16">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="portfolio-v2.css">
+
+  <style>
+    :root {
+      --primary: #6366f1;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Empêche le scroll sur la 404 */
+      background: #0f172a; /* Fond sombre pour matcher ton thème */
+    }
+
+    .error-page {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .error-content {
+      position: relative;
+      z-index: 10;
+      padding: 2rem;
+    }
+
+    .error-code {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(8rem, 20vw, 12rem);
+      font-weight: 800;
+      line-height: 1;
+      margin: 0;
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.3));
+    }
+
+    .error-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .error-text {
+      color: #94a3b8;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Style spécifique pour centrer le bouton 404 */
+    .error-cta {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    /* Animation du petit point de statut comme sur ton index */
+    .status-badge-404 {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(99, 102, 241, 0.1);
+      color: #818cf8;
+      padding: 0.5rem 1rem;
+      border-radius: 99px;
+      font-size: 0.875rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+  </style>
+</head>
+<body class="main-content" style="margin-left: 0;"> <section class="error-page">
+    <div class="grid-bg"></div>
+    
+    <div class="error-content">
+      <div class="status-badge-404" data-aos="fade-down">
+        <span class="status-dot" style="background: #ef4444; box-shadow: 0 0 10px #ef4444;"></span>
+        <span>Erreur de routage détectée</span>
+      </div>
+
+      <h1 class="error-code" data-aos="zoom-in">404</h1>
+      
+      <h2 class="error-title" data-aos="fade-up" data-aos-delay="100">Oups ! Destination inconnue.</h2>
+      
+      <p class="error-text" data-aos="fade-up" data-aos-delay="200">
+        Le paquet que vous cherchez a été perdu en cours de route. 
+        L'administrateur système (moi) suggère un retour à la base.
+      </p>
+
+      <div class="error-cta" data-aos="fade-up" data-aos-delay="300">
+        <a href="index.html" class="btn btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Retour à l'accueil
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+  </script>
+</body>
+</html>
