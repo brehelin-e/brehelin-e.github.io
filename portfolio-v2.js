@@ -455,7 +455,10 @@ const knowledge = {
 // Fonction pour appeler le proxy Serverless (/api/chat)
 async function getApiResponse(question) {
     try {
-        const response = await fetch('/api/chat', { 
+        // REMPLACE CETTE URL par l'adresse exacte de ton Worker Cloudflare
+        const workerUrl = 'https://gemini-chat.brehelin-e.workers.dev/'; 
+
+        const response = await fetch(workerUrl, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -464,16 +467,17 @@ async function getApiResponse(question) {
         });
 
         if (!response.ok) {
-            console.error(`Erreur du proxy Serverless: ${response.status}`);
-            return knowledge.fallback;
+            const errorData = await response.json();
+            console.error("Erreur Worker:", errorData);
+            return "Désolé, j'ai un problème technique pour répondre.";
         }
 
         const data = await response.json();
-        return data.answer || knowledge.fallback;
+        return data.answer || "Je n'ai pas pu générer de réponse.";
 
     } catch (error) {
-        console.error("Erreur réseau ou Fetch:", error);
-        return 'Erreur réseau. Je ne peux pas contacter l\'IA. Veuillez réessayer.';
+        console.error("Erreur réseau:", error);
+        return 'Erreur de connexion avec l\'IA. Vérifie ta connexion internet.';
     }
 }
 
