@@ -191,6 +191,8 @@ function initScrollIndicator() {
   });
 }
 
+// ... (garder le début du fichier pour les animations et particules)
+
 // ===============================================
 // 7. CHATBOT IA (Connecté à Cloudflare Workers)
 // ===============================================
@@ -199,7 +201,7 @@ const knowledge = {
     'fallback': 'Je ne suis pas sûr de comprendre. Veuillez reformuler votre question ou essayer l\'une des suggestions ci-dessus !',
 };
 
-// FONCTION CLÉ : Appelle ton Worker Cloudflare au lieu du dossier local /api
+// FONCTION CLÉ : Appelle ton Worker Cloudflare
 async function getApiResponse(question) {
     try {
         const CLOUDFLARE_WORKER_URL = 'https://gemini-chat.brehelin-e.workers.dev'; 
@@ -227,6 +229,8 @@ async function getApiResponse(question) {
         return 'Erreur réseau. Je n\'arrive pas à joindre mon IA sur Cloudflare.';
     }
 }
+
+// ... (garder les fonctions addMessage, showTyping, hideTyping, sendMessage et initChatbot)
 
 function addMessage(text, isBot = true) {
     const messagesContainer = document.getElementById('chatbot-messages');
