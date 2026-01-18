@@ -197,15 +197,17 @@ function initScrollIndicator() {
 // 7. CHATBOT IA (Connecté à Cloudflare Workers)
 // ===============================================
 
-
+// ===============================================
+// 7. CHATBOT IA (Connecté à Cloudflare Workers)
+// ===============================================
 
 const knowledge = {
     'fallback': 'Je ne suis pas sûr de comprendre. Veuillez reformuler votre question ou essayer l\'une des suggestions ci-dessus !',
 };
 
+// FONCTION CLÉ : Appelle ton Worker Cloudflare spécifique
 async function getApiResponse(question) {
     try {
-        // Remplacez par VOTRE URL Cloudflare exacte
         const CLOUDFLARE_WORKER_URL = 'https://gemini-chat.brehelin-e.workers.dev'; 
 
         const response = await fetch(CLOUDFLARE_WORKER_URL, { 
@@ -213,23 +215,29 @@ async function getApiResponse(question) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ question: question }), 
+            body: JSON.stringify({ 
+                question: question 
+            }),
         });
 
         if (!response.ok) {
             console.error(`Erreur Worker: ${response.status}`);
-            return "Désolé, j'ai un souci technique. Réessayez plus tard.";
+            return "Désolé, j'ai un petit souci technique. Réessayez dans un instant !";
         }
 
         const data = await response.json();
-        return data.answer || "Je n'ai pas pu obtenir de réponse.";
+        return data.answer || knowledge.fallback;
 
     } catch (error) {
         console.error("Erreur de connexion au Worker:", error);
-        return 'Erreur réseau. Impossible de contacter mon IA.';
+        return 'Erreur réseau. Je n\'arrive pas à joindre mon IA sur Cloudflare.';
     }
 }
-// ... gardez le reste de vos fonctions addMessage(), sendMessage(), etc.
+// ... (gardez vos fonctions addMessage, showTyping, sendMessage et initChatbot)
+
+const knowledge = {
+    'fallback': 'Je ne suis pas sûr de comprendre. Veuillez reformuler votre question ou essayer l\'une des suggestions ci-dessus !',
+};
 
 function addMessage(text, isBot = true) {
     const messagesContainer = document.getElementById('chatbot-messages');
