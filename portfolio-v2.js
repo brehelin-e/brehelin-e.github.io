@@ -197,13 +197,15 @@ function initScrollIndicator() {
 // 7. CHATBOT IA (Connecté à Cloudflare Workers)
 // ===============================================
 
+
+
 const knowledge = {
     'fallback': 'Je ne suis pas sûr de comprendre. Veuillez reformuler votre question ou essayer l\'une des suggestions ci-dessus !',
 };
 
 async function getApiResponse(question) {
     try {
-        // L'URL de votre worker Cloudflare
+        // Remplacez par VOTRE URL Cloudflare exacte
         const CLOUDFLARE_WORKER_URL = 'https://gemini-chat.brehelin-e.workers.dev'; 
 
         const response = await fetch(CLOUDFLARE_WORKER_URL, { 
@@ -211,21 +213,20 @@ async function getApiResponse(question) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            // On envoie un objet JSON avec la propriété "question"
             body: JSON.stringify({ question: question }), 
         });
 
         if (!response.ok) {
             console.error(`Erreur Worker: ${response.status}`);
-            return "Désolé, j'ai un petit souci technique. Réessayez dans un instant !";
+            return "Désolé, j'ai un souci technique. Réessayez plus tard.";
         }
 
         const data = await response.json();
-        return data.answer || knowledge.fallback;
+        return data.answer || "Je n'ai pas pu obtenir de réponse.";
 
     } catch (error) {
         console.error("Erreur de connexion au Worker:", error);
-        return 'Erreur réseau. Je n\'arrive pas à joindre mon IA sur Cloudflare.';
+        return 'Erreur réseau. Impossible de contacter mon IA.';
     }
 }
 // ... gardez le reste de vos fonctions addMessage(), sendMessage(), etc.
