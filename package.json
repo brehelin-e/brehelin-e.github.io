@@ -1,14 +1,8 @@
- {
+{
   "name": "portfolio-v2-complete",
   "version": "1.0.0",
-  "description": "Portfolio V2 Ewen Brehelin",
+  "description": "Portfolio V2 Ewen Bréhélin",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "keywords": [],
-  "author": "Ewen Brehelin",
-  "license": "ISC",
   "dependencies": {
     "@google/genai": "*"
   }
