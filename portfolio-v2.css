@@ -562,3 +562,100 @@ body{
 .chatbot-suggestions{display:flex;flex-wrap:wrap;gap:0.5rem;padding:0 1rem 1rem;background:#f9fafb}
 .suggestion-chip{padding:0.5rem 0.75rem;background:white;border:1px solid #e5e7eb;border-radius:20px;font-size:0.8125rem;cursor:pointer;transition:var(--transition)}
 .suggestion-chip:hover{background:rgba(99,102,241,0.1);border-color:var(--primary)}
+
+/* --- Section Education Timeline --- */
+.education {
+    background: var(--bg-light); /* Ou une couleur très légèrement différente pour séparer les sections */
+    padding: 100px 0;
+}
+
+.education-timeline {
+    max-width: 800px;
+    margin: 40px auto 0;
+    position: relative;
+    padding-left: 30px;
+}
+
+/* La ligne verticale */
+.education-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, #6366f1, #a855f7);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Le point sur la ligne */
+.timeline-dot {
+    position: absolute;
+    left: -36px;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #6366f1;
+    z-index: 2;
+}
+
+.timeline-date {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: #6366f1;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.timeline-content {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-5px);
+}
+
+.timeline-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 5px;
+}
+
+.timeline-institution {
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.timeline-description {
+    color: #475569;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .education-timeline {
+        margin-left: 10px;
+    }
+}
