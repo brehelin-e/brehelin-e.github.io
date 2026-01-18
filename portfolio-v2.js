@@ -567,3 +567,4 @@ function initChatbot() {
 
 // Initialiser le chatbot au chargement du DOM
 document.addEventListener('DOMContentLoaded', initChatbot);
+
